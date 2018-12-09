@@ -1,0 +1,360 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/serif.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+
+		<link rel="stylesheet" href="/path/to/styles/default.css">
+		<script src="/path/to/highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1 class="fragment fade-up">Scope and Closure</h1>
+					<h3 class="fragment" data-fragment-index="0">
+						Darya Shubenok
+						<h4 class="fragment" data-fragment-index="0">github.com/Horoshaya</h4>
+					</h3>
+				</section>
+
+				<section>
+					<h2>Scope</h2>
+					<p>locations where the variable is accessible</p>
+					<div class="box">
+						<div class="global">
+							<h4>Global</h4>
+							<p>outside the function</p>
+							<ul class="fragment" data-fragment-index="0">
+								<li>window</li>
+								<li>global</li>
+							</ul>
+						</div>
+						<div class="global">
+							<h4>Local</h4>
+							<p>inside the function</p>
+						</div>
+					</div>
+					<h6 class="fragment" data-fragment-index="1">P.S. There is no global scope in browser. All accessible variables are inside the object Window</h6>										
+				</section>
+
+				<section>
+					<section>
+						<h3>What differences between <br> VAR & LET/CONST?</h3>
+					</section>
+					<section>
+						<pre><code class="hljs javascript" data-trim data-noescape>
+							function doSomething() {
+							  var some = 5;
+							}
+							console.log(some); <span class="fragment" data-fragment-index="0">// ReferenceError: a is not defined</span>
+						</code></pre> 
+					</section>
+					<section>
+							<div class="box">
+								<div class="box-inner">
+									<pre class="pre-max"><code data-trim data-noescape>
+										if (true) {
+										  var a = 10;
+										}
+										
+										console.log(a); <span class="fragment" data-fragment-index="0">
+										// 10</span>
+
+										
+									</code></pre> 
+								</div>
+								<div class="box-inner">
+									<pre class="pre-max" ><code data-trim data-noescape>
+									if (true) {
+									  var a = 10;
+									}
+										 
+									console.log(a); <span class="fragment" data-fragment-index="0">
+									// ReferenceError: a is not defined  </span>
+								</code></pre>
+								</div>
+							</div>
+					</section>
+					<section>
+						<div class="box">
+							<div class="box-inner">
+								<pre class="pre-max"><code data-trim data-noescape>
+									var varVariable = 'Do you see me?'; 
+ 
+									window.varVariable; <span class="fragment" data-fragment-index="0">
+									// 'Do you see me?</span>
+								</code></pre> 
+							</div>
+							<div class="box-inner">
+								<pre class="pre-max" ><code data-trim data-noescape>
+									let letVariable = 'Do you see me?'; 
+ 
+									window.letVariable; <span class="fragment" data-fragment-index="0">
+									// undefined</span>
+							</code></pre>
+							</div>
+						</div>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Scope</h2>
+						<div class="box">
+							<h4>Neste</h4>
+							<h4>Shadow</h4>
+						</div>
+					</section>
+					<section>
+						<h2>Nested scope</h2>
+						<pre><code class="hljs javascript" data-trim data-noescape>
+							function outer() {
+								let a = 'Do you see me?'
+									function inner() {
+										let b = 'Yes I do';
+										console.log(a, b);
+									}
+									inner();
+								}
+								
+								outer();
+								console.log(a, b); <span class="fragment" data-fragment-index="0">// Do you see me? Yes, I do  </span>
+						</code></pre> 
+					</section>
+					<section>
+						<h2>Scope's shadowing</h2>
+						<pre><code class="hljs javascript" data-trim data-noescape>
+							function outer() {
+								let number = 10;
+								function inner() {
+									let number = 20;
+									console.log(number);
+								}
+								inner();
+							}
+							outer(); <span class="fragment" data-fragment-index="0">// 20</span>
+						</code></pre> 
+					</section>
+				</section>
+
+				<section>
+					<h2>Scope & Arguments</h2>
+					<div class="box">
+						<div class="box-inner">
+							<pre class="pre-max javascript"><code data-trim data-noescape>
+								let message = 'I see ';
+
+								function passVariableByValue(message) { 
+								  message += 'a cat';
+								  console.log(message);
+								}
+
+								passVariableByValue(message);
+
+
+
+
+								console.log(message + 'a dog'); <span class="fragment" data-fragment-index="0">
+								// I see a cat
+								// I see a dog
+								</span>	
+							</code></pre> 
+						</div>
+						<div class="box-inner">
+							<pre class="pre-max javascript" ><code data-trim data-noescape>
+							let message = {
+							  question: 'What do you see?',
+							  answer: 'cat',
+							}
+
+							function passVariableByValue(some) { 
+							  some.answer = 'dog';
+							  console.log(some);
+							}
+
+							passVariableByValue(message);
+
+							console.log(message);<span class="fragment small" data-fragment-index="0">
+							// Object {question: "What do you see?", answer: "dog"}  
+							// Object {question: "What do you see?", answer: "dog"}  
+							<span>
+							</code></pre>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<section>
+						<h2>Closure</h2>
+						<h5>the combination of a function and the lexical environment within which that function was declared private members via closure closure in a loop chaining self-overwriting functions</h5>
+						<h5>the closure is a collection of all the variables in scope at the time of creation of the function.
+							</h5>
+					</section>
+					<section>
+						<pre><code class="hljs javascript" data-trim data-noescape>
+							function outer() {
+								let a = 'Do you see me?';
+								
+							  return function inner() {
+							    let b = 'Yes I do';
+							    console.log(a + b);<span class="fragment" data-fragment-index="0">// 30</span>
+					    }
+							}
+							<span class="fragment" data-fragment-index="1">
+							const seeInner = outer();
+							console.dir(seeInner);
+							</span>
+						</code></pre> 
+					</section>
+					<section>
+						<img src="images/1.png" alt="">
+					</section>
+				</section>
+
+				<section>
+					<h2>Practical Closure</h2>
+					<h5>Closures are useful because they let you associate some data (the lexical environment) with a function that operates on that data</h5>
+					<h5>Our code is generally attached as a callback</h5>
+					<h5>Useful for private variables and methods. Let look through an example.
+						</h5>
+				</section>
+
+				<section>
+					<h2>Emulating private methods with Closure</h2>
+					<div class="box">
+						<div class="box-inner fragment" data-fragment-index="0">
+							<pre class="pre-max"><code data-trim data-noescape>
+								function User(name, age) {
+								  this.name = name;
+								  this.age = age;
+								  let secret = 'deduction';
+
+								  this.getSecret = function() {
+								    return secret;
+								  }
+								}
+
+								
+							</code></pre> 
+						</div>
+						<div class="box-inner fragment" data-fragment-index="1">
+							<pre class="pre-max" ><code data-trim data-noescape>
+								class User {
+								  constructor(name, age) {
+								    this.name = name;
+								    this.age = age;
+								    let secret = 'deduction';
+								
+								    this.getSecret = function() {
+								      return secret;
+								    }
+								  } 
+								}
+						</code></pre>
+						</div>
+											
+					</div>
+					<div class="box-inner">
+							<pre class="pre-max fragment" data-fragment-index="2"><code data-trim data-noescape>
+								let user = new User('Sherlock', 27);
+								console.log(user.secret); <span class="fragment" data-fragment-index="3">// undefined</span>
+								console.log(user.getSecret()); <span class="fragment" data-fragment-index="3">// deduction</span>
+						</code></pre>
+						</div>
+				</section>
+
+				<section>
+					<section>
+						<h2>Do you have problems with this?</h2>
+						<h4>determined on runtime and immutable</h4>
+					</section>
+					<section>
+							<div class="box">
+									<div class="box-inner">
+										<pre class="pre-max" style="font-size: 0.4em;"><code data-trim data-noescape>
+											class Magic {
+											  constructor(container, box, circle) {
+											    this.container = container;
+											    this.circle = circle;
+											    this.container.addEventListener('click', this.clickAction);    
+											  }
+												 
+												 
+											 clickAction({target}) {
+											  if(target.id == 'container') {
+											   this.circle.style.background = 'yellow';
+											  }
+											 }
+										 }
+										 <span class="fragment" data-fragment-index="1">// Uncaught TypeError: Cannot read property 'style' of undefined  </span>
+										</code></pre> 
+									</div>
+									<div class="box-inner">
+										<pre class="pre-max" style="font-size: 0.4em;" javascript><code data-trim data-noescape javascript>
+											class Magic {
+											  constructor(container, circle) {
+											    this.container = container;
+											    this.circle = circle;
+											    this.container.addEventListener('click', this.clickAction());  
+											  }
+												 
+											  clickAction() {
+											    let that = this;
+											    return function({target}) {
+											      if(target.id == 'container') {
+											  	    that.circle.style.background = 'yellow';
+											    }
+											  }
+											 }	 
+									</code></pre>
+									</div>						
+								</div>
+								<pre class="pre-max" style="font-size: 0.4em;" javascript><code data-trim data-noescape javascript>
+									const magic = new Magic(container, box, circle);
+								</code></pre>
+					</section>				
+				</section>
+				<section>
+					<h2>Thanks for attention</h2>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
