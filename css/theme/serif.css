@@ -61,10 +61,12 @@ body {
   font-size: 2em; }
 
 .reveal h3 {
-  font-size: 1.7em; }
+  font-size: 1.7em;
+padding-top: 40px; }
 
 .reveal h4 {
-  font-size: 1.2em; }
+  font-size: 1.2em;
+margin-top: 10px; }
 
 .reveal h5 {
   padding-top: 80px;
@@ -294,4 +296,8 @@ body {
 .reveal section img {
   border: none;
   box-shadow: -2px 1px 20px 5px #9ba5a5;
+}
+
+.reveal pre .pre-max {
+  font-size: 0.3em;
 }

@@ -36,14 +36,14 @@
 					</h3>
 				</section>
 
-				<section>
+				<section data-transition="convex">
 					<h2>Scope</h2>
-					<p>locations where the variable is accessible</p>
-					<div class="box">
-						<div class="global">
+					<p class="fragment" data-fragment-index="0">locations where the variable is accessible</p>
+					<div class="box fragment" data-fragment-index="0">
+						<div class="global fragment" data-fragment-index="0">
 							<h4>Global</h4>
 							<p>outside the function</p>
-							<ul class="fragment" data-fragment-index="0">
+							<ul class="fragment" data-fragment-index="1">
 								<li>window</li>
 								<li>global</li>
 							</ul>
@@ -53,10 +53,10 @@
 							<p>inside the function</p>
 						</div>
 					</div>
-					<h6 class="fragment" data-fragment-index="1">P.S. There is no global scope in browser. All accessible variables are inside the object Window</h6>										
+					<h6 class="fragment" data-fragment-index="2">P.S. There is no global scope in browser. All accessible variables are inside the object Window</h6>										
 				</section>
 
-				<section>
+				<section data-transition="convex">
 					<section>
 						<h3>What differences between <br> VAR & LET/CONST?</h3>
 					</section>
@@ -65,7 +65,7 @@
 							function doSomething() {
 							  var some = 5;
 							}
-							console.log(some); <span class="fragment" data-fragment-index="0">// ReferenceError: a is not defined</span>
+							console.log(some); <span class="fragment" data-fragment-index="0">// ReferenceError: some is not defined</span>
 						</code></pre> 
 					</section>
 					<section>
@@ -84,12 +84,12 @@
 								</div>
 								<div class="box-inner">
 									<pre class="pre-max" ><code data-trim data-noescape>
-									if (true) {
+									if (true) {                              
 									  var a = 10;
 									}
 										 
 									console.log(a); <span class="fragment" data-fragment-index="0">
-									// ReferenceError: a is not defined  </span>
+									// ReferenceError: a is not defined </span>
 								</code></pre>
 								</div>
 							</div>
@@ -116,51 +116,55 @@
 					</section>
 				</section>
 				
-				<section>
+				<section data-transition="concave">
 					<section>
-						<h2>Scope</h2>
+						<h2>Scope properties</h2>
 						<div class="box">
-							<h4>Neste</h4>
-							<h4>Shadow</h4>
+							<h4 class="fragment" data-fragment-index="0">Neste</h4>
+							<h4 class="fragment" data-fragment-index="0">Shadow</h4>
 						</div>
 					</section>
 					<section>
 						<h2>Nested scope</h2>
 						<pre><code class="hljs javascript" data-trim data-noescape>
 							function outer() {
-								let a = 'Do you see me?'
-									function inner() {
-										let b = 'Yes I do';
-										console.log(a, b);
-									}
-									inner();
-								}
+						     let a = 'Do you see me?'
 								
-								outer();
-								console.log(a, b); <span class="fragment" data-fragment-index="0">// Do you see me? Yes, I do  </span>
+							    function inner() {
+							      let b = 'Yes I do';
+							      console.log(a, b);
+							    }
+							  inner();		
+							}		
+								
+							outer();
+							console.log(a, b); <span class="fragment" data-fragment-index="0">// Do you see me? Yes, I do  </span>
 						</code></pre> 
 					</section>
 					<section>
 						<h2>Scope's shadowing</h2>
 						<pre><code class="hljs javascript" data-trim data-noescape>
 							function outer() {
-								let number = 10;
-								function inner() {
-									let number = 20;
-									console.log(number);
-								}
-								inner();
+						   let number = 10;
+								
+							  function inner() {
+							    let number = 20;
+							    console.log(number);
+							  }
+							  inner();
 							}
 							outer(); <span class="fragment" data-fragment-index="0">// 20</span>
 						</code></pre> 
 					</section>
 				</section>
 
-				<section>
-					<h2>Scope & Arguments</h2>
-					<div class="box">
-						<div class="box-inner">
-							<pre class="pre-max javascript"><code data-trim data-noescape>
+				<section data-transition="concave">
+					<section>
+						<h2>Scope & Arguments</h2>
+					</section>
+					<section>
+							<h3>Pass by value</h3>
+							<pre class="javascript"><code data-trim data-noescape>
 								let message = 'I see ';
 
 								function passVariableByValue(message) { 
@@ -170,17 +174,15 @@
 
 								passVariableByValue(message);
 
-
-
-
 								console.log(message + 'a dog'); <span class="fragment" data-fragment-index="0">
 								// I see a cat
 								// I see a dog
 								</span>	
 							</code></pre> 
-						</div>
-						<div class="box-inner">
-							<pre class="pre-max javascript" ><code data-trim data-noescape>
+						</section>
+						<section>
+							<h3>Pass by reference</h3>
+							<pre class="javascript" ><code data-trim data-noescape>
 							let message = {
 							  question: 'What do you see?',
 							  answer: 'cat',
@@ -198,15 +200,14 @@
 							// Object {question: "What do you see?", answer: "dog"}  
 							<span>
 							</code></pre>
-						</div>
-					</div>
+						</section>
 				</section>
 
-				<section>
+				<section data-transition="convex">
 					<section>
 						<h2>Closure</h2>
-						<h5>the combination of a function and the lexical environment within which that function was declared private members via closure closure in a loop chaining self-overwriting functions</h5>
-						<h5>the closure is a collection of all the variables in scope at the time of creation of the function.
+						<h5 class="fragment" data-fragment-index="0">the combination of a function and the lexical environment within which that function was declared private members via closure closure in a loop chaining self-overwriting functions</h5>
+						<h5 class="fragment" data-fragment-index="0">the closure is a collection of all the variables in scope at the time of creation of the function.
 							</h5>
 					</section>
 					<section>
@@ -226,19 +227,19 @@
 						</code></pre> 
 					</section>
 					<section>
-						<img src="images/1.png" alt="">
+						<img src="images/1.jpeg" alt="">
 					</section>
 				</section>
 
-				<section>
+				<section data-transition="concave">
 					<h2>Practical Closure</h2>
-					<h5>Closures are useful because they let you associate some data (the lexical environment) with a function that operates on that data</h5>
-					<h5>Our code is generally attached as a callback</h5>
-					<h5>Useful for private variables and methods. Let look through an example.
+					<h5 class="fragment" data-fragment-index="0">Closures are useful because they let you associate some data (the lexical environment) with a function that operates on that data</h5>
+					<h5 class="fragment" data-fragment-index="0">Our code is generally attached as a callback</h5>
+					<h5 class="fragment" data-fragment-index="0">Useful for private variables and methods. Let look through an example.
 						</h5>
 				</section>
 
-				<section>
+				<section data-transition="convex">
 					<h2>Emulating private methods with Closure</h2>
 					<div class="box">
 						<div class="box-inner fragment" data-fragment-index="0">
@@ -282,15 +283,14 @@
 						</div>
 				</section>
 
-				<section>
+				<section data-transition="concave">
 					<section>
-						<h2>Do you have problems with this?</h2>
-						<h4>determined on runtime and immutable</h4>
+						<h2>Did you have problems with this?</h2>
+						<h4 class="fragment" data-fragment-index="0">determined on runtime and immutable</h4>
 					</section>
-					<section>
-							<div class="box">
-									<div class="box-inner">
-										<pre class="pre-max" style="font-size: 0.4em;"><code data-trim data-noescape>
+							
+									<section>
+										<pre><code data-trim data-noescape>
 											class Magic {
 											  constructor(container, box, circle) {
 											    this.container = container;
@@ -307,9 +307,12 @@
 										 }
 										 <span class="fragment" data-fragment-index="1">// Uncaught TypeError: Cannot read property 'style' of undefined  </span>
 										</code></pre> 
-									</div>
-									<div class="box-inner">
-										<pre class="pre-max" style="font-size: 0.4em;" javascript><code data-trim data-noescape javascript>
+										<pre class="pre-max" javascript><code data-trim data-noescape javascript>
+												const magic = new Magic(container, box, circle);
+										</code></pre>
+								</section>
+								<section>		
+										<pre javascript><code data-trim data-noescape javascript>
 											class Magic {
 											  constructor(container, circle) {
 											    this.container = container;
@@ -325,15 +328,10 @@
 											    }
 											  }
 											 }	 
-									</code></pre>
-									</div>						
-								</div>
-								<pre class="pre-max" style="font-size: 0.4em;" javascript><code data-trim data-noescape javascript>
-									const magic = new Magic(container, box, circle);
-								</code></pre>
-					</section>				
-				</section>
-				<section>
+										</code></pre>								
+								</section>
+				</section>				
+				<section data-transition="convex">
 					<h2>Thanks for attention</h2>
 				</section>
 
