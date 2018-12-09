@@ -85,7 +85,7 @@
 								<div class="box-inner">
 									<pre class="pre-max" ><code data-trim data-noescape>
 									if (true) {                              
-									  var a = 10;
+									  let a = 10;
 									}
 										 
 									console.log(a); <span class="fragment" data-fragment-index="0">
@@ -206,14 +206,13 @@
 				<section data-transition="convex">
 					<section>
 						<h2>Closure</h2>
-						<h5 class="fragment" data-fragment-index="0">the combination of a function and the lexical environment within which that function was declared private members via closure closure in a loop chaining self-overwriting functions</h5>
-						<h5 class="fragment" data-fragment-index="0">the closure is a collection of all the variables in scope at the time of creation of the function.
+						<h5 class="fragment" data-fragment-index="0">the combination of a function and the lexical environment within which that function was declared</h5>
 							</h5>
 					</section>
 					<section>
 						<pre><code class="hljs javascript" data-trim data-noescape>
 							function outer() {
-								let a = 'Do you see me?';
+							let a = 'Do you see me?';
 								
 							  return function inner() {
 							    let b = 'Yes I do';
