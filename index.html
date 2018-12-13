@@ -84,12 +84,12 @@
 								</div>
 								<div class="box-inner">
 									<pre class="pre-max" ><code data-trim data-noescape>
-									if (true) {                              
-									  let a = 10;
+									if (true) {    			   
+									  let a = 10;	
 									}
 										 
 									console.log(a); <span class="fragment" data-fragment-index="0">
-									// ReferenceError: a is not defined </span>
+									// ReferenceError: a is not defined</span>
 								</code></pre>
 								</div>
 							</div>
@@ -132,13 +132,13 @@
 								
 							    function inner() {
 							      let b = 'Yes I do';
-							      console.log(a, b);
+							      console.log(a, b); <span class="fragment" data-fragment-index="0">// Do you see me? Yes, I do  </span>
 							    }
-							  inner();		
+								
+							    inner();		
 							}		
 								
 							outer();
-							console.log(a, b); <span class="fragment" data-fragment-index="0">// Do you see me? Yes, I do  </span>
 						</code></pre> 
 					</section>
 					<section>
@@ -149,11 +149,12 @@
 								
 							  function inner() {
 							    let number = 20;
-							    console.log(number);
+							    console.log(number); <span class="fragment" data-fragment-index="0">// 20</span>
 							  }
-							  inner();
+								
+						    inner();
 							}
-							outer(); <span class="fragment" data-fragment-index="0">// 20</span>
+							outer(); 
 						</code></pre> 
 					</section>
 				</section>
@@ -169,14 +170,12 @@
 
 								function passVariableByValue(message) { 
 								  message += 'a cat';
-								  console.log(message);
+								  console.log(message); <span class="fragment" data-fragment-index="0">// I see a cat</span>
 								}
 
 								passVariableByValue(message);
 
-								console.log(message + 'a dog'); <span class="fragment" data-fragment-index="0">
-								// I see a cat
-								// I see a dog
+								console.log(message + 'a dog'); <span class="fragment" data-fragment-index="0">// I see a dog
 								</span>	
 							</code></pre> 
 						</section>
@@ -188,17 +187,16 @@
 							  answer: 'cat',
 							}
 
-							function passVariableByValue(some) { 
+							function passVariableByValue(some) {
 							  some.answer = 'dog';
-							  console.log(some);
+						    console.log(some);
+						   <span class="fragment small" data-fragment-index="0">// Object {question: "What do you see?", answer: "dog"}</span>
 							}
 
 							passVariableByValue(message);
 
-							console.log(message);<span class="fragment small" data-fragment-index="0">
-							// Object {question: "What do you see?", answer: "dog"}  
-							// Object {question: "What do you see?", answer: "dog"}  
-							<span>
+							console.log(message);
+							<span class="fragment small" data-fragment-index="0">// Object {question: "What do you see?", answer: "dog"}<span>
 							</code></pre>
 						</section>
 				</section>
@@ -212,7 +210,7 @@
 					<section>
 						<pre><code class="hljs javascript" data-trim data-noescape>
 							function outer() {
-							let a = 'Do you see me?';
+							  let a = 'Do you see me?';
 								
 							  return function inner() {
 							    let b = 'Yes I do';
@@ -278,8 +276,7 @@
 								let user = new User('Sherlock', 27);
 								console.log(user.secret); <span class="fragment" data-fragment-index="3">// undefined</span>
 								console.log(user.getSecret()); <span class="fragment" data-fragment-index="3">// deduction</span>
-						</code></pre>
-						</div>
+							</code></pre></div>
 				</section>
 
 				<section data-transition="concave">
@@ -291,7 +288,7 @@
 									<section>
 										<pre><code data-trim data-noescape>
 											class Magic {
-											  constructor(container, box, circle) {
+											  constructor(container, circle) {
 											    this.container = container;
 											    this.circle = circle;
 											    this.container.addEventListener('click', this.clickAction);    
@@ -307,7 +304,7 @@
 										 <span class="fragment" data-fragment-index="1">// Uncaught TypeError: Cannot read property 'style' of undefined  </span>
 										</code></pre> 
 										<pre class="pre-max" javascript><code data-trim data-noescape javascript>
-												const magic = new Magic(container, box, circle);
+												const magic = new Magic(container, circle);
 										</code></pre>
 								</section>
 								<section>		
