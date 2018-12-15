@@ -84,7 +84,7 @@
 								</div>
 								<div class="box-inner">
 									<pre class="pre-max" ><code data-trim data-noescape>
-									if (true) {    			   
+									if (true) {    			   	
 									  let a = 10;	
 									}
 										 
@@ -190,13 +190,13 @@
 							function passVariableByValue(some) {
 							  some.answer = 'dog';
 						    console.log(some);
-						   <span class="fragment small" data-fragment-index="0">// Object {question: "What do you see?", answer: "dog"}</span>
+						   <span class="fragment" data-fragment-index="0">// Object {question: "What do you see?", answer: "dog"}</span>
 							}
 
 							passVariableByValue(message);
 
 							console.log(message);
-							<span class="fragment small" data-fragment-index="0">// Object {question: "What do you see?", answer: "dog"}<span>
+							<span class="fragment" data-fragment-index="0">// Object {question: "What do you see?", answer: "dog"}</span>
 							</code></pre>
 						</section>
 				</section>
@@ -212,12 +212,12 @@
 							function outer() {
 							  let a = 'Do you see me?';
 								
-							  return function inner() {
+							  <span class="fragment" data-fragment-index="0">return</span> function inner() {
 							    let b = 'Yes I do';
-							    console.log(a + b);<span class="fragment" data-fragment-index="0">// Do you see me? Yes I do</span>
+							    console.log(a + b);<span class="fragment" data-fragment-index="1">// Do you see me? Yes I do</span>
 					    }
 							}
-							<span class="fragment" data-fragment-index="1">
+							<span class="fragment" data-fragment-index="2">
 							const seeInner = outer();
 							console.dir(seeInner);
 							</span>
@@ -230,13 +230,14 @@
 
 				<section data-transition="concave">
 					<h2>Practical Closure</h2>
-					<h5 class="fragment" data-fragment-index="0">Closures are useful because they let you associate some data (the lexical environment) with a function that operates on that data</h5>
+					<h5 class="fragment" data-fragment-index="0">Let you associate some data (the lexical environment) with a function that operates on that data</h5>
 					<h5 class="fragment" data-fragment-index="0">Our code is generally attached as a callback</h5>
-					<h5 class="fragment" data-fragment-index="0">Useful for private variables and methods. Let look through an example.
+					<h5 class="fragment" data-fragment-index="0">For private variables and methods
 						</h5>
 				</section>
 
 				<section data-transition="convex">
+					<section>
 					<h2>Emulating private methods with Closure</h2>
 					<div class="box">
 						<div class="box-inner fragment" data-fragment-index="0">
@@ -271,18 +272,23 @@
 						</div>
 											
 					</div>
-					<div class="box-inner">
-							<pre class="pre-max fragment" data-fragment-index="2"><code data-trim data-noescape>
+					<div class="box-inner fragment" data-fragment-index="2">
+							<pre><code data-trim data-noescape>
 								let user = new User('Sherlock', 27);
 								console.log(user.secret); <span class="fragment" data-fragment-index="3">// undefined</span>
-								console.log(user.getSecret()); <span class="fragment" data-fragment-index="3">// deduction</span>
-							</code></pre></div>
+								console.log(user.getSecret()); <span class="fragment" data-fragment-index="4">// deduction</span>
+							</code></pre>
+						</div>
+						</section>
+						<section data-background="#000000" data-background-transition="zoom">
+							<h2 class="disadvantage">Disadvantage</h2>
+						</section>
 				</section>
 
 				<section data-transition="concave">
 					<section>
-						<h2>Did you have problems with this?</h2>
-						<h4 class="fragment" data-fragment-index="0">determined on runtime and immutable</h4>
+						<h2>Did you have problems with <b class="fragment highlight-red">this</b>?</h2>
+						<h4 class="fragment" data-fragment-index="1">determined on runtime and immutable</h4>
 					</section>
 							
 									<section>
@@ -291,7 +297,7 @@
 											  constructor(container, circle) {
 											    this.container = container;
 											    this.circle = circle;
-											    this.container.addEventListener('click', this.clickAction);    
+											    <span class="fragment fade-in" data-fragment-index="0">this.container.addEventListener('click', this.clickAction);</span>    
 											  }
 												 
 												 
@@ -303,9 +309,21 @@
 										 }
 										 <span class="fragment" data-fragment-index="1">// Uncaught TypeError: Cannot read property 'style' of undefined  </span>
 										</code></pre> 
-										<pre class="pre-max" javascript><code data-trim data-noescape javascript>
+										<pre><code data-trim data-noescape javascript>
 												const magic = new Magic(container, circle);
 										</code></pre>
+								</section>
+								<section>
+									<div class="fragment" data-fragment-index="0">
+										<pre><code data-trim data-noescape>
+											this.container.addEventListener('click', this.clickAction.bind(this))   ;		
+										</code></pre>
+									</div>
+									<div class="fragment" data-fragment-index="1" javascript>
+										<pre><code data-trim data-noescape javascript>
+												this.container.addEventListener('click', () = > this.clickAction())	
+										</code></pre>
+									</div>
 								</section>
 								<section>		
 										<pre javascript><code data-trim data-noescape javascript>
@@ -313,11 +331,11 @@
 											  constructor(container, circle) {
 											    this.container = container;
 											    this.circle = circle;
-											    this.container.addEventListener('click', this.clickAction());  
+											    this.container.addEventListener('click', this.clickAction<span class="fragment fade-in" data-fragment-index="1">()</span>);  
 											  }
 												 
 											  clickAction() {
-											    let that = this;
+						  	      <span class="fragment fade-in" data-fragment-index="0"><span class="hljs-keyword">let</span> that = this;</span>
 											    return function({target}) {
 											      if(target.id == 'container') {
 											  	    that.circle.style.background = 'yellow';
